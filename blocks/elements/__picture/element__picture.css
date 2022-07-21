@@ -9,6 +9,10 @@
   display: block;
 }
 
+.elements__picture:hover{
+  cursor:pointer;
+  }
+
 @media screen and (max-width:960px) {
   .elements__picture {
     width: 282px;

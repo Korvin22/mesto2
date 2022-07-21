@@ -12,4 +12,9 @@
   border: none;
   outline: none;
 
+
+}
+
+.elements__trash:hover{
+cursor:pointer;
 }
