@@ -1,5 +1,4 @@
-/* в макете указан цвет #000000, хотя визуально выглядит не черным, ставлю в
-соответствии с макетом */
+
 .popup__input {
   font-family: Inter, Arial, sans-serif;
   font-size: 14px;
@@ -8,13 +7,16 @@
   color: black;
   outline: none;
   border: none;
-  margin:0 0 48px 0;
+
   border-bottom: 1px solid #000000;
-  padding:0 0 13px 0;
+
+
 }
 
-.popup__input:first-of-type {
-  margin:0 0 30px 0;
+
+
+.popup__input:not(:placeholder-shown):invalid {
+  border-bottom: 1px solid red;
 }
 
 @media screen and (max-width:528px) {

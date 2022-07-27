@@ -2,6 +2,7 @@
 const popupEditProfile = document.querySelector(".popup-edit");
 const popupAddCard = document.querySelector(".popup-plus");
 const popupImage = document.querySelector(".popup-image");
+const popups = Array.from(document.querySelectorAll('.popup'));
 //кнопки открытия попапов
 const buttonOpenPopupEditProfile = document.querySelector(
   ".profile__open-popup"
@@ -31,6 +32,7 @@ const buttonSavePopupAddCard = document.querySelector("popup__button-save");
 //Функция открытия-закрытия попапа
 function togglePopup(popup) {
   popup.classList.toggle("popup_opened");
+
 }
 
 buttonOpenPopupEditProfile.addEventListener("click", function () {
@@ -77,7 +79,6 @@ function formEditProfileSubmitHandler(evt) {
 formEdit.addEventListener("submit", formEditProfileSubmitHandler);
 
 const selectors = {
-  form: ".popup-plus__form",
   inputTitle: ".popup__input_type_title",
   inputReference: ".popup__input_type_reference",
   elements: ".elements",
@@ -182,3 +183,44 @@ function handleClickCardImage(event) {
 }
 
 createInitialCards();
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+
+function closePopupEsc(evt,popup) {
+  if (evt.key === 'Escape') {
+    console.log(evt.key);
+    closePopup(popup);
+    }
+}
+
+function closePopupByOverlay(evt,popup) {
+  if (evt.target !== evt.currentTarget) {
+    return
+  }
+  togglePopup(popup);
+}
+
+popupAddCard.addEventListener('click', function (evt) {
+  closePopupByOverlay(evt,popupAddCard)
+});
+popupEditProfile.addEventListener('click', function (evt) {
+  closePopupByOverlay(evt,popupEditProfile)
+});
+popupImage.addEventListener('click', function (evt) {
+  closePopupByOverlay(evt,popupImage)
+});
+
+function closeAllPopupOnEsc(evt) {
+  if (evt.key === 'Escape'){
+  popups.forEach((popup) => {
+    popup.classList.remove('popup_opened');
+  })}
+}
+
+document.addEventListener('keydown',closeAllPopupOnEsc);
+
+
+
