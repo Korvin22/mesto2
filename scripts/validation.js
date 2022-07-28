@@ -1,39 +1,30 @@
+
 const formAdd = {
   form: ".popup__form_plus",
   button: '.popup__button-save',
-  inactiveButton: '.popup__button-save_disabled'
+  inactiveButton: 'popup__button-save_disabled',
+  activeButton: 'popup__button-save_abled'
 };
 
 const formEditProfile = {
   form: ".popup__form_edit",
   button: '.popup__button-save',
-  inactiveButton: '.popup__button-save_disabled'
+  inactiveButton: 'popup__button-save_disabled',
+  activeButton: 'popup__button-save_abled'
 };
 
 function enableValidation(config) {
   const form = document.querySelector(config.form);
-  form.addEventListener("submit", handleFormSubmit);
-  form.addEventListener("input", (event) => handleFormInput(event,config));
+  button=form.querySelector(config.button);
+  form.addEventListener("input", (event) => handleFormInput(event,config,button));
 }
 
-function handleFormSubmit(event) {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const isValid = form.checkValidity();
-  if (isValid) {
-    alert("Форма валидна!");
-    form.reset();
-  } else {
-    alert("Форма не валидна!");
-  }
-}
 
-function handleFormInput(event,config) {
+function handleFormInput(event,config,button) {
   const input = event.target;
-  const form = event.currentTarget;
   setCustomError(input);
   showFieldError(input);
-  setSubmitButtonState(form,config);
+  setSubmitButtonState(event.currentTarget,config,button);
 }
 
 function setCustomError(input) {
@@ -59,23 +50,18 @@ function showFieldError(input) {
   span.textContent = input.validationMessage;
 }
 
-function setSubmitButtonState(form,config) {
-  button=form.querySelector(config.button);
+function setSubmitButtonState(form,config,button) {
   const isValid = form.checkValidity();
   if (isValid) {
     button.removeAttribute('disabled','');
-    button.classList.remove('popup__button-save_disabled');
+    button.classList.remove(config.inactiveButton);
+    button.classList.add(config.activeButton);
 
   } else
   {
     button.setAttribute('disabled',true);
-    button.classList.add('popup__button-save_disabled');
+    button.classList.add(config.inactiveButton);
+    button.classList.remove(config.activeButton);
 
   }
 }
-
-
-
-
-enableValidation(formEditProfile);
-enableValidation(formAdd);
