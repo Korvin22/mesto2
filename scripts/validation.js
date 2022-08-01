@@ -19,6 +19,12 @@ function enableValidation(config) {
   form.addEventListener("input", (event) => handleFormInput(event,config,button));
 }
 
+function setDisabledState(button,config){
+  button.setAttribute('disabled',true);
+  button.classList.add(config.inactiveButton);
+  button.classList.remove(config.activeButton);
+}
+
 
 function handleFormInput(event,config,button) {
   const input = event.target;
@@ -59,9 +65,7 @@ function setSubmitButtonState(form,config,button) {
 
   } else
   {
-    button.setAttribute('disabled',true);
-    button.classList.add(config.inactiveButton);
-    button.classList.remove(config.activeButton);
+    setDisabledState(button,config);
 
   }
 }

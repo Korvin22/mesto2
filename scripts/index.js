@@ -149,7 +149,9 @@ formAddCard.addEventListener("submit", function (event) {
     cardsContainer
   );
   formAddCard.reset();
+
   closePopup(popupAddCard);
+  setDisabledState(formAdd.buttont, formAdd);
 
 });
 
