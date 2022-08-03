@@ -1,25 +1,10 @@
-
-const formAdd = {
-  form: ".popup__form_plus",
-  button: '.popup__button-save',
-  inactiveButton: 'popup__button-save_disabled',
-  activeButton: 'popup__button-save_abled'
-};
-
-const formEditProfile = {
-  form: ".popup__form_edit",
-  button: '.popup__button-save',
-  inactiveButton: 'popup__button-save_disabled',
-  activeButton: 'popup__button-save_abled'
-};
-
 function enableValidation(config) {
   const form = document.querySelector(config.form);
-  button=form.querySelector(config.button);
+  const button=form.querySelector(config.button);
   form.addEventListener("input", (event) => handleFormInput(event,config,button));
 }
 
-function setDisabledState(button,config){
+function setDisabledState(button,config) {
   button.setAttribute('disabled',true);
   button.classList.add(config.inactiveButton);
   button.classList.remove(config.activeButton);
@@ -59,9 +44,9 @@ function showFieldError(input) {
 function setSubmitButtonState(form,config,button) {
   const isValid = form.checkValidity();
   if (isValid) {
-    button.removeAttribute('disabled','');
     button.classList.remove(config.inactiveButton);
     button.classList.add(config.activeButton);
+    button.removeAttribute('disabled','');
 
   } else
   {
@@ -69,3 +54,18 @@ function setSubmitButtonState(form,config,button) {
 
   }
 }
+
+enableValidation(formEditProfile);
+enableValidation(formAdd);
+
+
+
+
+
+
+
+
+
+
+
+
