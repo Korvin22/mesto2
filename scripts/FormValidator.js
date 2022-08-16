@@ -1,6 +1,5 @@
-
 export class FormValidator {
-  constructor(config,form, setDisabledState){
+  constructor(config, form, setDisabledState) {
     this._config = config;
     this._form = form;
     this._button = this._config.button;
@@ -8,15 +7,15 @@ export class FormValidator {
     this._inactiveButton = this._config.inactiveButton;
     this._activeButton = this._config.activeButton;
     this._setDisabledState = setDisabledState;
-
   }
 
   enableValidation() {
     const form = this._form;
-    const button=form.querySelector(this._button);
-    form.addEventListener("input", (event) => this._handleFormInput(event, button));
+    const button = form.querySelector(this._button);
+    form.addEventListener("input", (event) =>
+      this._handleFormInput(event, button)
+    );
   }
-
 
   _handleFormInput(event, button) {
     const input = event.target;
@@ -34,17 +33,16 @@ export class FormValidator {
     if (validity.tooLong) {
       input.setCustomValidity("Ввод слишком длинный!");
     }
-    if ((validity.typeMismatch)) {
+    if (validity.typeMismatch) {
       input.setCustomValidity("Введите ссылку!");
     }
     if (validity.valueMissing) {
       input.setCustomValidity("Заполните поле!");
     }
-
   }
 
   _showFieldError(input) {
-    const span=input.nextElementSibling;
+    const span = input.nextElementSibling;
     span.textContent = input.validationMessage;
   }
 
@@ -53,16 +51,9 @@ export class FormValidator {
     if (isValid) {
       button.classList.remove(this._inactiveButton);
       button.classList.add(this._activeButton);
-      button.removeAttribute('disabled','');
-
-    } else
-    {
-      this._setDisabledState(button,this._config);
-
+      button.removeAttribute("disabled", "");
+    } else {
+      this._setDisabledState(button, this._config);
     }
   }
-
 }
-
-
-

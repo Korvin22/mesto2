@@ -1,7 +1,6 @@
 import {selectors,formAdd,formEditProfile,initialCards} from './constants.js';
 import { formAddCard, handleCardClick } from './index.js';
 
-export const cardsContainer = document.querySelector(selectors.elements);
 
 /* const selectors = {
     inputTitle: ".popup__input_type_title",
@@ -23,6 +22,7 @@ export class Card {
     this._link = data.link;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+
   }
 
   _getTemplate() {
@@ -34,7 +34,8 @@ export class Card {
     return cardElement;
   }
   _removeCard() {
-    this._element.closest(".elements__element").remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _handleLikeClick() {
@@ -74,16 +75,7 @@ export class Card {
     return this._element;
   }
 }
-function createInitialCards(){
-initialCards.forEach((item) => {
-  const card = new Card(item, selectors.template,handleCardClick);
-  const CardElement = card.createCard();
 
-  cardsContainer.prepend(CardElement);
-});
-};
-
-createInitialCards();
 
 
 
