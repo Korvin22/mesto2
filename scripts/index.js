@@ -102,6 +102,12 @@ function handleCardClick({name,link}) {
   popupPicture.src = link;
   openPopup(popupImage);}
 
+  function setDisabledState(button,config) {
+    button.setAttribute('disabled',true);
+    button.classList.add(config.inactiveButton);
+    button.classList.remove(config.activeButton);
+  }
+
   formAddCard.addEventListener("submit", function (event) {
     event.preventDefault();
     const card = new Card({name:inputTitle.value,link: inputReference.value}, selectors.template,handleCardClick);
@@ -111,3 +117,15 @@ function handleCardClick({name,link}) {
     closePopup(popupAddCard);
     setDisabledState(buttonSubmitAddCard, formAdd);
   });
+
+  const form1 = new FormValidator(formEditProfile,formEdit,setDisabledState)
+  form1.enableValidation();
+
+console.log(form1);
+
+
+
+  const form2 = new FormValidator(formAdd,formAddCard,setDisabledState)
+  form2.enableValidation();
+
+  console.log(form2);
