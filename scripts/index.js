@@ -1,3 +1,8 @@
+import {selectors,formAdd,formEditProfile,initialCards} from './constants.js';
+import {FormValidator} from './formValidation.js';
+import {Card,cardsContainer} from './card.js';
+
+
 //попапы
 const popupEditProfile = document.querySelector(".popup-edit");
 const popupAddCard = document.querySelector(".popup-plus");
@@ -35,7 +40,7 @@ popups.forEach((popup) => {
 
 // Находим форму в DOM
 const formEdit = popupEditProfile.querySelector(".popup__form_edit");
-const formAddCard = popupAddCard.querySelector(".popup__form_plus");
+export const formAddCard = popupAddCard.querySelector(".popup__form_plus");
 
 // Находим поля формы в DOM
 const nameInput = formEdit.querySelector(".popup__input_type_name");
@@ -64,6 +69,11 @@ buttonOpenPopupAddCard.addEventListener("click", function () {
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
+
+const popupPicture = document.querySelector(selectors.popup__picture);
+const popupCaption = document.querySelector(selectors.popup__caption);
+const inputTitle = formAddCard.querySelector(selectors.inputTitle);
+const inputReference = formAddCard.querySelector(selectors.inputReference);
 //заполнение попапа с именем и занятием
 const fillPopupEdit = function () {
   nameInput.value = profileTitle.textContent;
@@ -96,7 +106,7 @@ function closePopupEsc(evt) {
 //  popup.classList.remove('popup_opened');
 //})}
 //}
-function handleCardClick({name,link}) {
+export function handleCardClick({name,link}) {
   popupCaption.textContent = name;
   popupPicture.alt = name;
   popupPicture.src = link;
@@ -121,11 +131,6 @@ function handleCardClick({name,link}) {
   const form1 = new FormValidator(formEditProfile,formEdit,setDisabledState)
   form1.enableValidation();
 
-console.log(form1);
-
-
-
   const form2 = new FormValidator(formAdd,formAddCard,setDisabledState)
   form2.enableValidation();
 
-  console.log(form2);

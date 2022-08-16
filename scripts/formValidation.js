@@ -1,5 +1,5 @@
 
-class FormValidator {
+export class FormValidator {
   constructor(config,form, setDisabledState){
     this._config = config;
     this._form = form;
@@ -51,9 +51,9 @@ class FormValidator {
   _setSubmitButtonState(button) {
     const isValid = this._form.checkValidity();
     if (isValid) {
-      this._form.querySelector(this._button).classList.remove(this._inactiveButton);
-      this._form.querySelector(this._button).classList.add(this._activeButton);
-      this._form.querySelector(this._button).removeAttribute('disabled','');
+      button.classList.remove(this._inactiveButton);
+      button.classList.add(this._activeButton);
+      button.removeAttribute('disabled','');
 
     } else
     {
@@ -63,7 +63,6 @@ class FormValidator {
   }
 
 }
-
 
 
 

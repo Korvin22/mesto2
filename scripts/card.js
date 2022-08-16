@@ -1,8 +1,7 @@
-const popupPicture = document.querySelector(selectors.popup__picture);
-const popupCaption = document.querySelector(selectors.popup__caption);
-const inputTitle = formAddCard.querySelector(selectors.inputTitle);
-const inputReference = formAddCard.querySelector(selectors.inputReference);
-const cardsContainer = document.querySelector(selectors.elements);
+import {selectors,formAdd,formEditProfile,initialCards} from './constants.js';
+import { formAddCard, handleCardClick } from './index.js';
+
+export const cardsContainer = document.querySelector(selectors.elements);
 
 /* const selectors = {
     inputTitle: ".popup__input_type_title",
@@ -18,7 +17,7 @@ const cardsContainer = document.querySelector(selectors.elements);
     popup__caption: ".popup__caption",
   };*/
 
-class Card {
+export class Card {
   constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
@@ -85,6 +84,8 @@ initialCards.forEach((item) => {
 };
 
 createInitialCards();
+
+
 
 
 
