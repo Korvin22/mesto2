@@ -2,27 +2,26 @@
  замечание появилось первый раз на 3 итерации и непонятно*/
 .header {
   max-width: 880px;
-  margin: 0 200px 0 200px;
+  width: calc(100% - 400px);
+  margin: 0 auto 0 auto;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
   border-bottom:1px solid rgba(84,84,84,0.7);
 }
 
-@media screen and (max-width: 984px) {
-  .header {
-    margin: 0 100px 0 100px;
-  }
+@media screen and (max-width: 1240px){
+.header {
+    width: calc(100% - 200px);}
 }
 
-@media screen and (max-width: 784px) {
+@media screen and (max-width: 750px){
   .header {
-    margin: 0 50px 0 50px;
+      width: calc(100% - 100px);}
   }
-}
 
-@media screen and (max-width: 528px) {
+
+@media screen and (max-width: 520px){
   .header {
-    margin: 0;
-  }
-}
+      width: 100%;
+
+  }}

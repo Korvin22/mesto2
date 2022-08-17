@@ -43,7 +43,7 @@ popups.forEach((popup) => {
 
 // Находим форму в DOM
 const formEdit = popupEditProfile.querySelector(".popup__form_edit");
-export const formAddCard = popupAddCard.querySelector(".popup__form_plus");
+const formAddCard = popupAddCard.querySelector(".popup__form_plus");
 
 // Находим поля формы в DOM
 const nameInput = formEdit.querySelector(".popup__input_type_name");
@@ -83,7 +83,7 @@ const fillPopupEdit = function () {
   jobInput.value = profileSubtitle.textContent;
 };
 
-function formEditProfileSubmitHandler(evt) {
+function handleSubmitButtonFormEdit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.g
@@ -95,7 +95,7 @@ function formEditProfileSubmitHandler(evt) {
   //popupSaveButtonElement.addEventListener('click', closePopupVisibility);
 }
 
-formEdit.addEventListener("submit", formEditProfileSubmitHandler);
+formEdit.addEventListener("submit", handleSubmitButtonFormEdit);
 
 function closePopupEsc(evt) {
   if (evt.key === "Escape") {
@@ -116,41 +116,37 @@ export function handleCardClick({ name, link }) {
   openPopup(popupImage);
 }
 
-function setDisabledState(button, config) {
-  button.setAttribute("disabled", true);
-  button.classList.add(config.inactiveButton);
-  button.classList.remove(config.activeButton);
-}
-
 const cardsContainer = document.querySelector(selectors.elements);
 
-function createInitialCards(){
+function renderCard({ name, link }, place) {
+  const card = new Card({ name, link }, selectors.template, handleCardClick);
+  const cardElement = card.createCard();
+  place.prepend(cardElement);
+}
+
+function createInitialCards() {
   initialCards.forEach((item) => {
-    const card = new Card(item, selectors.template,handleCardClick);
-    const CardElement = card.createCard();
-
-    cardsContainer.prepend(CardElement);
+    renderCard(item, cardsContainer);
   });
-  };
+}
 
-  createInitialCards();
+createInitialCards();
+
+const formProfile = new FormValidator(formEditProfile, formEdit);
+formProfile.enableValidation();
+
+const formCard = new FormValidator(formAdd, formAddCard);
+formCard.enableValidation();
 
 formAddCard.addEventListener("submit", function (event) {
   event.preventDefault();
-  const card = new Card(
+
+  renderCard(
     { name: inputTitle.value, link: inputReference.value },
-    selectors.template,
-    handleCardClick
+    cardsContainer
   );
-  const CardElement = card.createCard();
-  cardsContainer.prepend(CardElement);
+
   formAddCard.reset();
   closePopup(popupAddCard);
-  setDisabledState(buttonSubmitAddCard, formAdd);
+  formCard.setDisabledState();
 });
-
-const form1 = new FormValidator(formEditProfile, formEdit, setDisabledState);
-form1.enableValidation();
-
-const form2 = new FormValidator(formAdd, formAddCard, setDisabledState);
-form2.enableValidation();

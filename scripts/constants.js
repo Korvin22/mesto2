@@ -9,7 +9,7 @@ const selectors = {
   trash: ".elements__trash",
   like: ".elements__like",
   popup__picture: ".popup__picture",
-  popup__caption: ".popup__caption"
+  popup__caption: ".popup__caption",
 };
 
 const formAdd = {
@@ -17,7 +17,7 @@ const formAdd = {
   button: ".popup__button-save",
   inactiveButton: "popup__button-save_disabled",
   activeButton: "popup__button-save_abled",
-  input: 'popup__input'
+  input: "popup__input",
 };
 
 const formEditProfile = {
@@ -25,7 +25,7 @@ const formEditProfile = {
   button: ".popup__button-save",
   inactiveButton: "popup__button-save_disabled",
   activeButton: "popup__button-save_abled",
-  input: 'popup__input'
+  input: "popup__input",
 };
 
 const initialCards = [
@@ -55,4 +55,4 @@ const initialCards = [
   },
 ];
 
-export {selectors,formAdd,formEditProfile,initialCards};
+export { selectors, formAdd, formEditProfile, initialCards };

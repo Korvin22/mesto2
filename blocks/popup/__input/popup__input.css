@@ -8,17 +8,12 @@
   outline: none;
   border: none;
   border-bottom: 1px solid #000000;
+  padding-bottom:13px;
 }
-
 
 
 .popup__input:not(:placeholder-shown):invalid {
   border-bottom: 1px solid red;
 }
 
-@media screen and (max-width:528px) {
-  .popup__input {
-    margin:0 0 45px 0;
-  }
 
-}

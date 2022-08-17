@@ -1,59 +1,62 @@
 export class FormValidator {
-  constructor(config, form, setDisabledState) {
+  constructor(config, form) {
     this._config = config;
     this._form = form;
-    this._button = this._config.button;
+    this._selectorButton = this._config.button;
     this._input = this._config.input;
     this._inactiveButton = this._config.inactiveButton;
     this._activeButton = this._config.activeButton;
-    this._setDisabledState = setDisabledState;
   }
 
   enableValidation() {
-    const form = this._form;
-    const button = form.querySelector(this._button);
-    form.addEventListener("input", (event) =>
-      this._handleFormInput(event, button)
+    this._button = this._form.querySelector(this._selectorButton);
+    this._form.addEventListener("input", (event) =>
+      this._handleFormInput(event, this._button)
     );
   }
 
-  _handleFormInput(event, button) {
+  _handleFormInput(event) {
     const input = event.target;
     this._setCustomError(input);
     this._showFieldError(input);
-    this._setSubmitButtonState(button);
+    this._setSubmitButtonState(this._button);
   }
 
   _setCustomError(input) {
     const validity = input.validity;
-    input.setCustomValidity("");
     if (validity.tooShort) {
-      input.setCustomValidity("Ввод слишком короткий!");
+      input.validationMessage;
     }
     if (validity.tooLong) {
-      input.setCustomValidity("Ввод слишком длинный!");
+      input.validationMessage;
     }
     if (validity.typeMismatch) {
-      input.setCustomValidity("Введите ссылку!");
+      input.validationMessage;
     }
     if (validity.valueMissing) {
-      input.setCustomValidity("Заполните поле!");
+      input.validationMessage;
     }
+  }
+
+  setDisabledState() {
+    this._button.setAttribute("disabled", true);
+    this._button.classList.add(this._inactiveButton);
+    this._button.classList.remove(this._activeButton);
   }
 
   _showFieldError(input) {
-    const span = input.nextElementSibling;
+    const span = this._form.querySelector(`.${input.id}-error`);
     span.textContent = input.validationMessage;
   }
 
-  _setSubmitButtonState(button) {
+  _setSubmitButtonState() {
     const isValid = this._form.checkValidity();
     if (isValid) {
-      button.classList.remove(this._inactiveButton);
-      button.classList.add(this._activeButton);
-      button.removeAttribute("disabled", "");
+      this._button.classList.remove(this._inactiveButton);
+      this._button.classList.add(this._activeButton);
+      this._button.removeAttribute("disabled", "");
     } else {
-      this._setDisabledState(button, this._config);
+      this.setDisabledState(this._button, this._config);
     }
   }
 }

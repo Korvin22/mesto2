@@ -1,6 +1,10 @@
-import {selectors,formAdd,formEditProfile,initialCards} from './constants.js';
-import { formAddCard, handleCardClick } from './index.js';
-
+import {
+  selectors,
+  formAdd,
+  formEditProfile,
+  initialCards,
+} from "./constants.js";
+import { handleCardClick } from "./index.js";
 
 /* const selectors = {
     inputTitle: ".popup__input_type_title",
@@ -22,7 +26,6 @@ export class Card {
     this._link = data.link;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
-
   }
 
   _getTemplate() {
@@ -34,58 +37,43 @@ export class Card {
     return cardElement;
   }
   _removeCard() {
+    console.log(this._element);
     this._element.remove();
     this._element = null;
   }
 
   _handleLikeClick() {
-    this._element
-      .querySelector(selectors.like)
-      .classList.toggle("elements__like_active");
+    this._buttonLike.classList.toggle("elements__like_active");
   }
 
   _setEventListeners() {
+    this._buttonLike = this._element.querySelector(selectors.like);
     this._element
       .querySelector(selectors.trash)
       .addEventListener("click", () => {
         this._removeCard();
       });
-    this._element
-      .querySelector(selectors.like)
-      .addEventListener("click", () => {
-        this._handleLikeClick();
-      });
-    this._element
-      .querySelector(selectors.elements__picture)
-      .addEventListener("click", () => {
-        this._handleCardClick({name:this._name,link:this._link});
-      });
+    this._buttonLike.addEventListener("click", () => {
+      this._handleLikeClick();
+    });
+    this._cardPicture.addEventListener("click", () => {
+      this._handleCardClick({ name: this._name, link: this._link });
+    });
   }
 
   createCard() {
     this._element = this._getTemplate();
-    const cardPicture = this._element.querySelector(
+    this._cardPicture = this._element.querySelector(
       selectors.elements__picture
     );
     this._element.querySelector(selectors.element__title).textContent =
       this._name;
-    cardPicture.alt = this._name;
-    cardPicture.src = this._link;
+    this._cardPicture.alt = this._name;
+    this._cardPicture.src = this._link;
     this._setEventListeners();
     return this._element;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /*function createCard({ name, reference }) {
   const cardElement = template.cloneNode(true);
