@@ -1,10 +1,4 @@
-import {
-  selectors,
-  formAdd,
-  formEditProfile,
-  initialCards,
-} from "./constants.js";
-import { handleCardClick } from "./index.js";
+import { selectors } from "./constants.js";
 
 /* const selectors = {
     inputTitle: ".popup__input_type_title",
@@ -60,7 +54,7 @@ export class Card {
       this._handleCardClick({ name: this._name, link: this._link });
     });
   }
-
+/*метод createCard класса Card создает готовую карточку и навешивает слушатели, в DOM не вставляет*/
   createCard() {
     this._element = this._getTemplate();
     this._cardPicture = this._element.querySelector(

@@ -17,25 +17,8 @@ export class FormValidator {
 
   _handleFormInput(event) {
     const input = event.target;
-    this._setCustomError(input);
     this._showFieldError(input);
     this._setSubmitButtonState(this._button);
-  }
-
-  _setCustomError(input) {
-    const validity = input.validity;
-    if (validity.tooShort) {
-      input.validationMessage;
-    }
-    if (validity.tooLong) {
-      input.validationMessage;
-    }
-    if (validity.typeMismatch) {
-      input.validationMessage;
-    }
-    if (validity.valueMissing) {
-      input.validationMessage;
-    }
   }
 
   setDisabledState() {

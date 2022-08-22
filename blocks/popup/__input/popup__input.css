@@ -1,4 +1,3 @@
-
 .popup__input {
   font-family: Inter, Arial, sans-serif;
   font-size: 14px;
@@ -8,12 +7,9 @@
   outline: none;
   border: none;
   border-bottom: 1px solid #000000;
-  padding-bottom:13px;
+  padding-bottom: 13px;
 }
-
 
 .popup__input:not(:placeholder-shown):invalid {
   border-bottom: 1px solid red;
 }
-
-

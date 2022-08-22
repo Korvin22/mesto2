@@ -83,6 +83,10 @@ const fillPopupEdit = function () {
   jobInput.value = profileSubtitle.textContent;
 };
 
+const template = document
+  .querySelector(selectors.template)
+  .content.querySelector(selectors.element);
+
 function handleSubmitButtonFormEdit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
@@ -117,16 +121,33 @@ export function handleCardClick({ name, link }) {
 }
 
 const cardsContainer = document.querySelector(selectors.elements);
+/*метод createCard класса Card создает готовую карточку и навешивает слушатели, в DOM не вставляет.
+Для исключению дублирования кода ниже создана функция renderCard, которая принимает на вход объект
+с именем и ссылкой, а также место, куда необходимо вставить карточку, затем создает экземпляр
+класса Card, создает карточку с помощью встроенного в класс метода CreateCard и затем вставляет ее
+в нужное место методом prepend. Таким образом логика вставки разделена, createCard отвечает за создание
+карточки, за вставку - renderCard*/
 
-function renderCard({ name, link }, place) {
+/*все выполнено по чек листу - метод Card должен обладать публичным методом, который вернёт
+готовую разметку, с установленными слушателями событий. Ниже я сделал функцию createCard и установил ей
+необходимые слушатели*/
+function createCard({ name, link }) {
   const card = new Card({ name, link }, selectors.template, handleCardClick);
   const cardElement = card.createCard();
+  return cardElement;
+
+}
+
+function renderCard({ name, link }, place) {
+  const cardElement = createCard({ name, link })
   place.prepend(cardElement);
+
 }
 
 function createInitialCards() {
   initialCards.forEach((item) => {
     renderCard(item, cardsContainer);
+
   });
 }
 
