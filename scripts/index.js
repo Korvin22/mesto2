@@ -6,6 +6,7 @@ import {
 } from "./constants.js";
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
+import {Section} from "./section.js";
 
 //попапы
 const popupEditProfile = document.querySelector(".popup-edit");
@@ -120,23 +121,32 @@ export function handleCardClick({ name, link }) {
   openPopup(popupImage);
 }
 
-const cardsContainer = document.querySelector(selectors.elements);
-/*метод createCard класса Card создает готовую карточку и навешивает слушатели, в DOM не вставляет.
-Для исключению дублирования кода ниже создана функция renderCard, которая принимает на вход объект
-с именем и ссылкой, а также место, куда необходимо вставить карточку, затем создает экземпляр
-класса Card, создает карточку с помощью встроенного в класс метода CreateCard и затем вставляет ее
-в нужное место методом prepend. Таким образом логика вставки разделена, createCard отвечает за создание
-карточки, за вставку - renderCard*/
+/*const cardsContainer = document.querySelector(selectors.elements);*/
 
-/*все выполнено по чек листу - метод Card должен обладать публичным методом, который вернёт
-готовую разметку, с установленными слушателями событий. Ниже я сделал функцию createCard и установил ей
-необходимые слушатели*/
 function createCard({ name, link }) {
   const card = new Card({ name, link }, selectors.template, handleCardClick);
   const cardElement = card.createCard();
   return cardElement;
 
 }
+
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: ({ name, link }) => {
+
+      const cardElement = createCard({ name, link });
+      section.addItem(cardElement);
+    },
+  },
+  selectors.elements
+);
+
+console.log(section)
+
+section.renderInitialItems();
+
+/*
 
 function renderCard({ name, link }, place) {
   const cardElement = createCard({ name, link })
@@ -151,7 +161,7 @@ function createInitialCards() {
   });
 }
 
-createInitialCards();
+createInitialCards();*/
 
 const formProfile = new FormValidator(formEditProfile, formEdit);
 formProfile.enableValidation();
@@ -162,11 +172,12 @@ formCard.enableValidation();
 formAddCard.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  renderCard(
+  /*renderCard(
     { name: inputTitle.value, link: inputReference.value },
     cardsContainer
-  );
-
+  );*/
+  const cardElement = createCard({name: inputTitle.value, link: inputReference.value});
+  section.addItem(cardElement);
   formAddCard.reset();
   closePopup(popupAddCard);
   formCard.setDisabledState();
