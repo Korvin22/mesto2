@@ -14,6 +14,8 @@ const popupEditProfile = document.querySelector(".popup-edit");
 const popupAddCard = document.querySelector(".popup-plus");
 const popupImage = document.querySelector(".popup-image");
 const popups = Array.from(document.querySelectorAll(".popup"));
+const popupsSelectors = [".popup-edit", ".popup-plus", ".popup-image"]
+
 //кнопки открытия попапов
 const buttonOpenPopupEditProfile = document.querySelector(
   ".profile__open-popup"
@@ -39,19 +41,19 @@ const buttonSubmitAddCard = popupAddCard.querySelector(".popup__button-save");
   }
 }*/
 
-popups.forEach((popup) => {
-  const popupElement = new Popup(popup);
+popupsSelectors.forEach((popupSelector) => {
+  const popupElement = new Popup(popupSelector);
   popupElement.setEventListeners();
   return popupElement
 });
 
-const classPopupEdit = new Popup(popupEditProfile);
-const classPopupAddCard = new Popup(popupAddCard);
-const classPopupImage = new Popup(popupImage);
+const classPopupEdit = new Popup('.popup-edit');
+const classPopupAddCard = new Popup('.popup-plus');
+const classPopupImage = new Popup('.popup-image');
 
 // Находим форму в DOM
-const formEdit = popupEditProfile.querySelector(".popup__form_edit");
-const formAddCard = popupAddCard.querySelector(".popup__form_plus");
+const formEdit = document.querySelector(".popup__form_edit");
+const formAddCard = document.querySelector(".popup__form_plus");
 
 // Находим поля формы в DOM
 const nameInput = formEdit.querySelector(".popup__input_type_name");
@@ -103,7 +105,7 @@ function handleSubmitButtonFormEdit(evt) {
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  closePopup(popupEditProfile);
+  classPopupEdit.closePopup();
   //popupSaveButtonElement.addEventListener('click', closePopupVisibility);
 }
 
