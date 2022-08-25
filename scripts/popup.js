@@ -14,12 +14,20 @@ export class Popup {
 
   _handleEscClose(evt) {
       if (evt.key === "Escape") {
-        this.closePopup(document.querySelector(".popup_opened"));
+        document.querySelector('.popup_opened').classList.remove('popup_opened');
       }
 
   }
 
   setEventListeners() {
+    this.popup.addEventListener("click", (evt) => {
+      if (
+        evt.target === evt.currentTarget ||
+        evt.target.classList.contains("popup__button-close")
+      ) {
+        this.closePopup();
+      }
+    });
 
 
   }

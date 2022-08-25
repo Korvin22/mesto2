@@ -6,7 +6,8 @@ import {
 } from "./constants.js";
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
-import {Section} from "./section.js";
+import { Section } from "./section.js";
+import {Popup} from "./popup.js";
 
 //попапы
 const popupEditProfile = document.querySelector(".popup-edit");
@@ -19,7 +20,7 @@ const buttonOpenPopupEditProfile = document.querySelector(
 );
 const buttonOpenPopupAddCard = document.querySelector(".profile__button-plus");
 
-//кнопка закрытия попапов
+/*кнопка закрытия попапов
 const buttonClosePopupEditProfile = popupEditProfile.querySelector(
   ".popup__button-close"
 );
@@ -30,17 +31,23 @@ const buttonClosePopupImage = document.querySelector(
   ".popup__button-close_image"
 );
 const buttonSubmitAddCard = popupAddCard.querySelector(".popup__button-save");
+*/
+
+/*function closePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    closePopup(document.querySelector(".popup_opened"));
+  }
+}*/
 
 popups.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    if (
-      evt.target === evt.currentTarget ||
-      evt.target.classList.contains("popup__button-close")
-    ) {
-      closePopup(popup);
-    }
-  });
+  const popupElement = new Popup(popup);
+  popupElement.setEventListeners();
+  return popupElement
 });
+
+const classPopupEdit = new Popup(popupEditProfile);
+const classPopupAddCard = new Popup(popupAddCard);
+const classPopupImage = new Popup(popupImage);
 
 // Находим форму в DOM
 const formEdit = popupEditProfile.querySelector(".popup__form_edit");
@@ -52,7 +59,7 @@ const jobInput = formEdit.querySelector(".popup__input_type_job");
 
 const buttonSavePopupAddCard = document.querySelector("popup__button-save");
 //Функция открытия-закрытия попапа
-function openPopup(popup) {
+/*function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEsc);
 }
@@ -60,15 +67,15 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
-}
+}*/
 
-buttonOpenPopupEditProfile.addEventListener("click", function () {
-  openPopup(popupEditProfile);
+buttonOpenPopupEditProfile.addEventListener("click", () => {
+  classPopupEdit.openPopup()
   fillPopupEdit();
 });
 
 buttonOpenPopupAddCard.addEventListener("click", function () {
-  openPopup(popupAddCard);
+  classPopupAddCard.openPopup()
 });
 
 const profileTitle = document.querySelector(".profile__title");
@@ -102,12 +109,6 @@ function handleSubmitButtonFormEdit(evt) {
 
 formEdit.addEventListener("submit", handleSubmitButtonFormEdit);
 
-function closePopupEsc(evt) {
-  if (evt.key === "Escape") {
-    closePopup(document.querySelector(".popup_opened"));
-  }
-}
-
 //function closeAllPopupOnEsc(evt) {
 //if (evt.key === 'Escape'){
 //popups.forEach((popup) => {
@@ -118,7 +119,7 @@ export function handleCardClick({ name, link }) {
   popupCaption.textContent = name;
   popupPicture.alt = name;
   popupPicture.src = link;
-  openPopup(popupImage);
+  classPopupImage.openPopup();
 }
 
 /*const cardsContainer = document.querySelector(selectors.elements);*/
@@ -127,22 +128,18 @@ function createCard({ name, link }) {
   const card = new Card({ name, link }, selectors.template, handleCardClick);
   const cardElement = card.createCard();
   return cardElement;
-
 }
 
 const section = new Section(
   {
     items: initialCards,
     renderer: ({ name, link }) => {
-
       const cardElement = createCard({ name, link });
       section.addItem(cardElement);
     },
   },
   selectors.elements
 );
-
-console.log(section)
 
 section.renderInitialItems();
 
@@ -176,9 +173,12 @@ formAddCard.addEventListener("submit", function (event) {
     { name: inputTitle.value, link: inputReference.value },
     cardsContainer
   );*/
-  const cardElement = createCard({name: inputTitle.value, link: inputReference.value});
+  const cardElement = createCard({
+    name: inputTitle.value,
+    link: inputReference.value,
+  });
   section.addItem(cardElement);
   formAddCard.reset();
-  closePopup(popupAddCard);
+  classPopupAddCard.closePopup();
   formCard.setDisabledState();
 });
