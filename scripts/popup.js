@@ -1,26 +1,23 @@
 export class Popup {
   constructor(popup_selector) {
-    this.popup_selector=popup_selector;
+    this.popup_selector = popup_selector;
     this.popup = document.querySelector(this.popup_selector);
-
   }
-  openPopup () {
-
+  openPopup() {
     console.log(this.popup);
     this.popup.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
   }
 
-  closePopup () {
+  closePopup() {
     this.popup.classList.remove("popup_opened");
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
   _handleEscClose(evt) {
-      if (evt.key === "Escape") {
-        document.querySelector('.popup_opened').classList.remove('popup_opened');
-      }
-
+    if (evt.key === "Escape") {
+      document.querySelector(".popup_opened").classList.remove("popup_opened");
+    }
   }
 
   setEventListeners() {
@@ -32,12 +29,8 @@ export class Popup {
         this.closePopup();
       }
     });
-
-
   }
 }
-
-
 
 /*Принимает в конструктор единственный параметр — селектор попапа.
 Содержит публичные методы open и close, которые отвечают за открытие и закрытие попапа.

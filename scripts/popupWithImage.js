@@ -1,4 +1,5 @@
-import { Popup } from "./popup";
+import { Popup } from "./popup.js";
+import { selectors } from "./constants.js";
 
 export class PopupWithImage extends Popup {
   constructor(popup_selector) {
@@ -6,13 +7,17 @@ export class PopupWithImage extends Popup {
 
   }
   openPopup ({name,link}) {
-
-    console.log(this.popup);
-    this.popup.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose);
+    const popupPicture = this.popup.querySelector(selectors.popup__picture);
+    const popupCaption = this.popup.querySelector(selectors.popup__caption);
     popupCaption.textContent = name;
     popupPicture.alt = name;
     popupPicture.src = link;
-    classPopupImage.openPopup();
+    this.popup.classList.add("popup_opened");
+    document.addEventListener("keydown", this._handleEscClose);
+
+    /*popupCaption.textContent = name;
+    popupPicture.alt = name;
+    popupPicture.src = link;*/
+
   }
 }
