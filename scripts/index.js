@@ -1,3 +1,4 @@
+import '../pages/index.css';
 import {
   selectors,
   formAdd,
@@ -95,7 +96,7 @@ function closePopup(popup) {
 
 buttonOpenPopupEditProfile.addEventListener("click", () => {
   classPopupEdit.openPopup();
-  fillPopupEdit();
+  classUserInfo.getUserInfo();
 });
 
 buttonOpenPopupAddCard.addEventListener("click", function () {
@@ -104,10 +105,7 @@ buttonOpenPopupAddCard.addEventListener("click", function () {
 
 const inputTitle = formAddCard.querySelector(selectors.inputTitle);
 const inputReference = formAddCard.querySelector(selectors.inputReference);
-//заполнение попапа с именем и занятием
-const fillPopupEdit = function () {
-  classUserInfo.getUserInfo();
-};
+//заполнение попапа с именем и занятие
 
 const template = document
   .querySelector(selectors.template)
